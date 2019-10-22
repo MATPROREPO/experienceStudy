@@ -79,6 +79,7 @@ CREATE TABLE assumption.rate (
 	,duration SMALLINT
 	,rate DECIMAL(11,10)
 )
+
 CREATE TABLE assumption.table (
 	tableId INT
 	,tableDescription VARCHAR(25)
