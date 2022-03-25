@@ -1,92 +1,31 @@
-USE EXPSTD
-
-/*Product tables*/
-CREATE SCHEMA product
-CREATE TABLE product.product (
-	productId INT
-	,productName VARCHAR(25)
-	,productCode VARCHAR(5)
-	,productTypeID INT
-	,soldFrom DATE
-	,soldTo DATE
-)
-CREATE TABLE product.type (
-	productTypeId INT
-	,productTypeName VARCHAR(25)
-)
-CREATE TABLE product.grouping (
-	productGroupingId INT
-	,productGroupingName VARCHAR(25)
-)
-CREATE TABLE product.groupingRelationship (
-	productId INT
-	,productGroupingId INT
+INSERT INTO auxillary.integers (
+    SELECT i0.i + i1.i + i2.i + i3.i + i4.i + i5.i + i6.i + i7.i + i8.i + i9.i + i10.i + i12.i + i13.i + i14.i
+    FROM (SELECT 0 AS i UNION ALL SELECT POWER(2,0)) AS i0
+    CROSS JOIN (SELECT 0 AS i UNION ALL SELECT POWER(2,1)) AS i1
+    CROSS JOIN (SELECT 0 AS i UNION ALL SELECT POWER(2,2)) AS i2
+    CROSS JOIN (SELECT 0 AS i UNION ALL SELECT POWER(2,3)) AS i3
+    CROSS JOIN (SELECT 0 AS i UNION ALL SELECT POWER(2,4)) AS i4
+    CROSS JOIN (SELECT 0 AS i UNION ALL SELECT POWER(2,5)) AS i5
+    CROSS JOIN (SELECT 0 AS i UNION ALL SELECT POWER(2,6)) AS i6
+    CROSS JOIN (SELECT 0 AS i UNION ALL SELECT POWER(2,7)) AS i7
+    CROSS JOIN (SELECT 0 AS i UNION ALL SELECT POWER(2,8)) AS i8
+    CROSS JOIN (SELECT 0 AS i UNION ALL SELECT POWER(2,9)) AS i9
+    CROSS JOIN (SELECT 0 AS i UNION ALL SELECT POWER(2,10)) AS i10
+    CROSS JOIN (SELECT 0 AS i UNION ALL SELECT POWER(2,11)) AS i11
+    CROSS JOIN (SELECT 0 AS i UNION ALL SELECT POWER(2,12)) AS i12
+    CROSS JOIN (SELECT 0 AS i UNION ALL SELECT POWER(2,13)) AS i13
+    CROSS JOIN (SELECT 0 AS i UNION ALL SELECT POWER(2,14)) AS i14
 )
 
-/*Policy tables*/
-CREATE SCHEMA policy
-CREATE TABLE policy.policy (
-	policyId INT
-	,policyNumber VARCHAR(25)
-	,productId INT
-	,issueDate DATE
-	,terminationDate DATE
-	,statusId INT
-	,issueStateId INT
-)
-/*Type table: intended to hold a variety of common information, such as states, genders, status codes, etc. etc. etc.*/
-CREATE SCHEMA type
-CREATE TABLE type.type (
-	typeId INT
-	,typeDesc VARCHAR(25)
-	,typeValue VARCHAR(25)
-)
-/*Coverage tables*/
-CREATE SCHEMA coverage
-CREATE TABLE coverage.coverage (
-	coverageId INT
-	,policyId INT
-	,coverageTypeId INT
-	,productId INT
-	,issueDate DATE
-	,terminationDate DATE
-	,statusId INT
-	,lifeId INT
-)
+INSERT INTO auxillary.calendar (
+    WITH initial_dates AS (
+        SELECT DATEADD('day',i.i,CAST('2000-01-01' AS DATE)) AS dt
+        FROM auxillary.integers AS i
+    )
 
-CREATE TABLE coverage.values (
-	coverageId INT
-	,amount DECIMAL(13,4)
-	,amountTypeId INT
-	,effectiveDate DATE
-)
+    SELECT
+        d.dt
+        ,DATE_DIFF('day',DATE_TRUNC('year',d.dt),d.dt) + 1
 
-CREATE SCHEMA study
-CREATE TABLE study.exposures (
-	startDate
-	,endDate
-	,exposureTypeId
-	,exposureValue
-	,coverageId
-)
-
-CREATE SCHEMA assumption
-CREATE TABLE assumption.rate (
-	tableId INT
-	,genderId INT
-	,classId INT
-	,issueAge SMALLINT
-	,duration SMALLINT
-	,rate DECIMAL(11,10)
-)
-
-CREATE TABLE assumption.table (
-	tableId INT
-	,tableDescription VARCHAR(25)
-	,assumptionTypeId INT
-)
-
-CREATE TABLE assumption.type (
-	assumptionTypeId INT
-	,typeDescription VARCHAR(25)
+    FROM initial_dates AS d
 )
