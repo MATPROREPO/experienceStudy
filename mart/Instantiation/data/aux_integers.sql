@@ -1,5 +1,5 @@
-INSERT INTO auxillary.integers (
-    SELECT i0.i + i1.i + i2.i + i3.i + i4.i + i5.i + i6.i + i7.i + i8.i + i9.i + i10.i + i12.i + i13.i + i14.i
+INSERT INTO auxiliary.integers (
+    SELECT i0.i + i1.i + i2.i + i3.i + i4.i + i5.i + i6.i + i7.i + i8.i + i9.i + i10.i + i11.i + i12.i + i13.i + i14.i
     FROM (SELECT 0 AS i UNION ALL SELECT POWER(2,0)) AS i0
     CROSS JOIN (SELECT 0 AS i UNION ALL SELECT POWER(2,1)) AS i1
     CROSS JOIN (SELECT 0 AS i UNION ALL SELECT POWER(2,2)) AS i2
@@ -15,17 +15,4 @@ INSERT INTO auxillary.integers (
     CROSS JOIN (SELECT 0 AS i UNION ALL SELECT POWER(2,12)) AS i12
     CROSS JOIN (SELECT 0 AS i UNION ALL SELECT POWER(2,13)) AS i13
     CROSS JOIN (SELECT 0 AS i UNION ALL SELECT POWER(2,14)) AS i14
-)
-
-INSERT INTO auxillary.calendar (
-    WITH initial_dates AS (
-        SELECT DATEADD('day',i.i,CAST('2000-01-01' AS DATE)) AS dt
-        FROM auxillary.integers AS i
-    )
-
-    SELECT
-        d.dt
-        ,DATE_DIFF('day',DATE_TRUNC('year',d.dt),d.dt) + 1
-
-    FROM initial_dates AS d
 )
